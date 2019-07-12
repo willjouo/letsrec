@@ -1,0 +1,8 @@
+.progress {
+    height: 8px;
+    background-color: rgba(0, 0, 0, 0.1);
+}
+.progress-bar {
+    height: 8px;
+    background-color: #f39c12;
+}

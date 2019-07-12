@@ -1,20 +1,32 @@
-const Input = {
-    listDevices: ()=>{
-        return new Promise(async (resolve) => {
-            let devices = await navigator.mediaDevices.enumerateDevices();
-            let result = [];
-            devices.forEach((device) => {
-                result.push({
-                    id: device.deviceId,
-                    type: device.kind,
-                    name: device.label
-                });
-            });
-            resolve(result);
+const Mics = {
+
+    devices: [],
+
+    init: ()=>{
+        document.getElementById('mics').addEventListener('change', ()=>{
+            let v = document.getElementById('mics').value;
+            if(typeof v === 'string' && v.length > 0){
+                Mics.startVu(v);
+            }
         });
     },
 
-    start: async (deviceId)=>{
+    setDevices: (devicesList)=>{
+        Mics.devices = [];
+        devicesList.forEach((device)=>{
+            if(device.type !== 'audioinput' && device.type !== 'videoinput'){
+                return;
+            }
+            Mics.devices.push(device);
+            document.getElementById('mics').insertAdjacentHTML('beforeend', `<option value="${device.id}">${device.name}</option>`);
+        });
+
+        if(Mics.devices.length > 0){
+            Mics.startVu(Mics.devices[0].id);
+        }
+    },
+
+    startVu: async (deviceId)=>{
         let stream = await navigator.mediaDevices.getUserMedia({
             audio: {
                 deviceId: deviceId
@@ -46,16 +58,7 @@ const Input = {
             document.getElementById('vu').setAttribute('aria-valuenow', Math.round(average - 40));
             document.getElementById('vu').style.width = Math.round(average*2.5)+'%';
         }
-    },
-
-    showWebcam: async (deviceId)=>{
-        let stream = await navigator.mediaDevices.getUserMedia({
-            video: {
-                deviceId: deviceId
-            }
-        });
-        document.getElementById('webcam').srcObject = stream;
     }
 }
 
-module.exports = Input;
+module.exports = Mics;
