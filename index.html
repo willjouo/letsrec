@@ -11,11 +11,14 @@
 
 <body>
 	<div id="main">
-		<div class="controls">
-			<button class="btn-primary btn-large"><i class="fas fa-play fa-fw"></i></button>
-			<button class="btn-primary btn-large"><i class="fas fa-cog fa-fw"></i></button>
+		<div id="controls">
+			<div id="timer">00:00:00</div>
+			<div>
+				<button class="btn-primary btn-large"><i class="fas fa-play fa-fw"></i></button>
+				<button id="controls-options" class="btn-primary btn-large"><i class="fas fa-cog fa-fw"></i></button>
+			</div>
 		</div>
-		<div class="options">
+		<div id="options" style="display: none">
 			<select id="mics" class="form-control form-control-sm mb-3"></select>
 			<select id="webcams" class="form-control form-control-sm mb-3"></select>
 		</div>	

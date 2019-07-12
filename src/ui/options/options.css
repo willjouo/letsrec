@@ -1,0 +1,24 @@
+#controls {
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+#controls > div:nth-child(even){
+    flex: 1 1 auto;
+    text-align: right;
+}
+
+#controls > div:nth-child(odd){
+    flex: 1 1 auto;
+    text-align: left;
+    line-height: 38px;
+}
+
+#timer {
+    font-size: 30px;
+}
+
+#options {
+    padding: 10px 0;
+}

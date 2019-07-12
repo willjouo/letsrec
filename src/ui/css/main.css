@@ -1,5 +1,10 @@
 @import "../topbar/topbar.css";
 @import "../vumeter/vumeter.css";
+@import "../options/options.css";
+
+body {
+    font-family: -apple-system,BlinkMacSystemFont,Segoe WPC,Segoe UI,HelveticaNeue-Light,Ubuntu,Droid Sans,sans-serif;
+}
 
 #main {
     position: absolute;

@@ -1,4 +1,5 @@
 require('./ui/topbar/topbar').init();
+require('./ui/options/options').init();
 
 const Inputs = require('./core/inputs');
 const Mics = require('./core/mics');
