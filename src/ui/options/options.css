@@ -4,6 +4,11 @@
     justify-content: center;
 }
 
+#timer {
+    user-select: none;
+    font-family: SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;
+}
+
 #controls > div:nth-child(even){
     flex: 1 1 auto;
     text-align: right;

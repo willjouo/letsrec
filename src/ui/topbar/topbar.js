@@ -26,10 +26,7 @@ const Topbar = {
      * Injects the modal code into the DOM
      */
     init: function(){
-        let devMode = true;
-        document.body.innerHTML += Template(path.join(__dirname, 'topbar'), {
-            dev: devMode ? `<button data-menu="dev">Debug</button>` : ''
-        });
+        document.body.innerHTML += Template(path.join(__dirname, 'topbar'));
 
         setImmediate(()=>{
             document.getElementById('topbar').addEventListener('click', (e)=>{
@@ -84,10 +81,8 @@ const Topbar = {
         }
     },
 
-    setProjectName: (name)=>{
-        let title = name === null ? 'RPGM' : htmlentities(name)+' - RPGM';
-        document.getElementById('topbar-title').innerHTML = title;
-        document.title = title;
+    setIsRecording: (recording)=>{
+        document.getElementById('topbar').style.backgroundColor = recording ? '#c0392b' : 'rgb(51, 51, 51)';
     },
 
     /** SUBMENU */
@@ -154,16 +149,10 @@ const Topbar = {
     getMenuItems: (name)=>{
         if(name == 'file'){
             return [
-                {type: 'item', text: 'Quit', callback: ()=>{remote.app.quit();}}
-            ];
-        } else if(name == 'dev'){
-            return [
                 {type: 'item', text: 'Reload', callback: ()=>{remote.getCurrentWebContents().reloadIgnoringCache();}},
-                {type: 'item', text: 'Dev tools', callback: ()=>{remote.getCurrentWebContents().openDevTools();}}
-            ];
-        } else if(name == 'help'){
-            return [
-                {type: 'item', text: 'Support', callback: ()=>{require('electron').shell.openExternal('https://twitter.com/willongshow');}},
+                {type: 'item', text: 'Dev tools', callback: ()=>{remote.getCurrentWebContents().openDevTools();}},
+                {type: 'item', text: 'Quit', callback: ()=>{remote.app.quit();}},
+                {type: 'item', text: 'Support', callback: ()=>{require('electron').shell.openExternal('https://twitter.com/willongshow');}}
             ];
         }
         return [];

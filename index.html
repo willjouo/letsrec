@@ -4,7 +4,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Letsrec</title>
+	<title>LetsRec</title>
 	<link href="./deps/fontawesome/fontawesome.css" rel="stylesheet" />
 	<link href="./src/ui/css/main.css" rel="stylesheet" />
 </head>
@@ -14,13 +14,27 @@
 		<div id="controls">
 			<div id="timer">00:00:00</div>
 			<div>
-				<button class="btn-primary btn-large"><i class="fas fa-play fa-fw"></i></button>
+				<button id="controls-record" class="btn-primary btn-large"><i class="fas fa-play fa-fw"></i></button>
 				<button id="controls-options" class="btn-primary btn-large"><i class="fas fa-cog fa-fw"></i></button>
 			</div>
 		</div>
 		<div id="options" style="display: none">
-			<select id="mics" class="form-control form-control-sm mb-3"></select>
-			<select id="webcams" class="form-control form-control-sm mb-3"></select>
+			<label>Microphone</label>
+			<select id="mics" class="mb-3"></select>
+			<label>Webcam</label>
+			<select id="webcams" class="mb-3"></select>
+			<label>Output folder</label>
+			<div class="mb-3" style="display: flex">
+				<div style="flex: 0.8 1 auto" class="mr-3">
+					<input type="text" id="folder">
+				</div>
+				<div style="flex: 0.2 1 auto">
+					<button id="folder-browse" class="btn-primary btn-block">Browse...</button>
+				</div>
+			</div>
+			<label>Filename</label>
+			<input type="text" id="filename">
+			<div class="help mb-3">The name of the generated file. %t will be replace by the date and time.</div>
 		</div>	
 	
 		<div class="progress">
