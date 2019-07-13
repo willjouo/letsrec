@@ -5,4 +5,5 @@
 .progress-bar {
     height: 8px;
     background-color: #f39c12;
+    transition: all 10ms;
 }

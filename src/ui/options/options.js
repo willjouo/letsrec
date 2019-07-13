@@ -1,5 +1,6 @@
 const moment = require('moment');
 
+const Settings = require('../../core/settings');
 const Topbar = require('../topbar/topbar');
 
 const Controls = {
@@ -17,6 +18,12 @@ const Controls = {
             Topbar.setIsRecording(Controls.isRecording);
             Controls.startRecord();
         });
+
+        console.log(Settings.get('cameraSize'));
+        document.querySelector('#webcam-size').value = Settings.get('cameraSize');
+        document.querySelector('#webcam-fps').value = Settings.get('cameraFps');
+        document.querySelector('#folder').value = Settings.get('outputFolder');
+        document.querySelector('#filename').value = Settings.get('outputFile');
     },
 
     startRecord: ()=>{

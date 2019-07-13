@@ -1,3 +1,5 @@
+const VuMeter = require('../ui/vumeter/vumeter');
+
 const Mics = {
 
     devices: [],
@@ -56,7 +58,7 @@ const Mics = {
             }
             let average = values / length;
             document.getElementById('vu').setAttribute('aria-valuenow', Math.round(average - 40));
-            document.getElementById('vu').style.width = Math.round(average*2.5)+'%';
+            VuMeter.setValue(Math.round(average*2.5));
         }
     }
 }

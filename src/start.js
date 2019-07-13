@@ -1,3 +1,6 @@
+// First, user settings
+require('./core/settings').init();
+
 require('./ui/topbar/topbar').init();
 require('./ui/options/options').init();
 
