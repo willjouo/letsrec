@@ -1,10 +1,15 @@
+// Node
+const child_process = require('child_process');
+const path = require('path');
+// Electron
 const {remote} = require('electron');
 const {dialog} = require('electron').remote;
-
+// 3rd parties
 const moment = require('moment');
-
+// LetsRec
 const Settings = require('../../core/settings');
 const Topbar = require('../topbar/topbar');
+const Video = require('../../core/video');
 
 const Controls = {
     isRecording: false,
@@ -54,7 +59,8 @@ const Controls = {
 
         // Click on webcam config
         document.querySelector('#webcam-config').addEventListener('click', ()=>{
-            // TODO
+            let configpath = path.join(__dirname, '..', '..', '..', 'deps', 'webcamconfig.exe');
+            child_process.spawn(configpath, [Video.getSelectedCameraName()]);
         });
 
         // Click on browse output folder

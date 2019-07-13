@@ -15,6 +15,10 @@ const Video = {
         });
     },
 
+    getSelectedCameraName: ()=>{
+        return Video.getDeviceById(document.getElementById('webcams').value).name;
+    },
+
     getDeviceById: (id)=>{
         for(let i = 0; i < Video.devices.length; ++i){
             if(Video.devices[i].id === id){
