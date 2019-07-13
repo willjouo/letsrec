@@ -22,10 +22,17 @@ const Controls = {
     startRecord: ()=>{
         Controls.timerStart = moment();
         Controls.updateTimer();
+        document.querySelector('#controls-record').innerHTML = '<i class="fas fa-stop fa-fw"></i>';
+        document.querySelector('#controls-record').classList.remove('btn-primary');
+        document.querySelector('#controls-record').classList.add('btn-danger');
     },
 
     updateTimer: ()=>{
         if(!Controls.isRecording){
+            document.title = `LetsRec`;
+            document.querySelector('#controls-record').innerHTML = '<i class="fas fa-play fa-fw"></i>';
+            document.querySelector('#controls-record').classList.remove('btn-danger');
+            document.querySelector('#controls-record').classList.add('btn-primary');
             return;
         }
 

@@ -22,7 +22,27 @@
 			<label>Microphone</label>
 			<select id="mics" class="mb-3"></select>
 			<label>Webcam</label>
-			<select id="webcams" class="mb-3"></select>
+			<select id="webcams" class="mb-2"></select>
+			<div class="mb-3" style="display: flex">
+				<div style="flex: 1 1 auto" class="mr-3">
+					<select id="webcam-resolution">
+						<option value="720">HD (720p)</option>
+						<option value="1080">Full HD (1080p)</option>
+					</select>
+				</div>
+				<div style="flex: 1 1 auto" class="mr-3">
+					<select id="webcam-fps">
+						<option value="24">24 fps</option>
+						<option value="29.97">29.97 fps</option>
+						<option value="30">30 fps</option>
+						<option value="50">50 fps</option>
+						<option value="60">60 fps</option>
+					</select>
+				</div>
+				<div style="flex: 1 1 auto">
+					<button id="webcam-config" class="btn-primary btn-block">Config...</button>
+				</div>
+			</div>
 			<label>Output folder</label>
 			<div class="mb-3" style="display: flex">
 				<div style="flex: 0.8 1 auto" class="mr-3">
