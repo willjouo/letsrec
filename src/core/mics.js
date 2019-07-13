@@ -1,3 +1,4 @@
+const Settings = require('./settings');
 const VuMeter = require('../ui/vumeter/vumeter');
 
 const Mics = {
@@ -9,22 +10,70 @@ const Mics = {
             let v = document.getElementById('mics').value;
             if(typeof v === 'string' && v.length > 0){
                 Mics.startVu(v);
+                Settings.set({
+                    microphone: Mics.getDeviceById(v).name
+                });
             }
         });
     },
 
+    getDeviceById: (id)=>{
+        for(let i = 0; i < Mics.devices.length; ++i){
+            if(Mics.devices[i].id === id){
+                return Mics.devices[i];
+            }
+        }
+        return null;
+    },
+
+    getDeviceByName: (name)=>{
+        for(let i = 0; i < Mics.devices.length; ++i){
+            if(Mics.devices[i].name === name){
+                return Mics.devices[i];
+            }
+        }
+        return null;
+    },
+
     setDevices: (devicesList)=>{
+        // Reset device list
         Mics.devices = [];
+
+        // Select microphones from list of devices
         devicesList.forEach((device)=>{
             if(device.type !== 'audioinput' && device.type !== 'videoinput'){
                 return;
             }
+            if(device.name.startsWith('Default ') || device.name.startsWith('Communications')){
+                return;
+            }
             Mics.devices.push(device);
+        });
+
+        // Populate select widget
+        Mics.devices.forEach((device)=>{
             document.getElementById('mics').insertAdjacentHTML('beforeend', `<option value="${device.id}">${device.name}</option>`);
         });
 
-        if(Mics.devices.length > 0){
-            Mics.startVu(Mics.devices[0].id);
+        // Select default microphone according to settings
+        let opt = Settings.get('microphone');
+        let def = null;
+        if(opt !== null){
+            let dev = Mics.getDeviceByName(opt);
+            if(dev !== null){
+                def = dev.id;
+            }
+        }
+
+        // If no settings, take the first one
+        if(def === null && Mics.devices.length > 0){
+            def = Mics.devices[0].id;
+        }
+
+        // If a microphone has been found, start the VU meter and select it in the widget
+        if(def !== null){
+            Mics.startVu(def);
+            document.getElementById('mics').value = def;
         }
     },
 

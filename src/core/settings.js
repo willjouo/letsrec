@@ -37,7 +37,7 @@ const Settings = {
 
     set: (infos)=>{
         Settings.options = Object.assign({}, Settings.options, infos);
-        localStorage.setItem
+        localStorage.setItem('options', JSON.stringify(Settings.options));
     }
 };
 

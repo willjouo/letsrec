@@ -13,7 +13,6 @@ document.addEventListener('DOMContentLoaded', ()=>{
     Mics.init();
 
     Inputs().then((res)=>{
-        console.log(res);
         Video.setDevices(res);
         Mics.setDevices(res);
     });

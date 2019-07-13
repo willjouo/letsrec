@@ -1,3 +1,6 @@
+const {remote} = require('electron');
+const {dialog} = require('electron').remote;
+
 const moment = require('moment');
 
 const Settings = require('../../core/settings');
@@ -8,27 +11,75 @@ const Controls = {
     timerStart: null,
 
     init: ()=>{
+        // Click on options buttons
         document.querySelector('#controls-options').addEventListener('click', ()=>{
             let opts = document.querySelector('#options');
             opts.style.display = opts.style.display == 'block' ? 'none' : 'block';
         });
 
+        // Click on Start/Stop record
         document.querySelector('#controls-record').addEventListener('click', ()=>{
             Controls.isRecording = !Controls.isRecording;
             Topbar.setIsRecording(Controls.isRecording);
             Controls.startRecord();
         });
 
-        console.log(Settings.get('cameraSize'));
+        // Fill form
         document.querySelector('#webcam-size').value = Settings.get('cameraSize');
         document.querySelector('#webcam-fps').value = Settings.get('cameraFps');
         document.querySelector('#folder').value = Settings.get('outputFolder');
         document.querySelector('#filename').value = Settings.get('outputFile');
+
+        // Form handler
+        document.querySelector('#webcam-size').addEventListener('change', ()=>{
+            Settings.set({
+                cameraSize: document.querySelector('#webcam-size').value
+            });
+        });
+        document.querySelector('#webcam-fps').addEventListener('change', ()=>{
+            Settings.set({
+                cameraFps: document.querySelector('#webcam-fps').value
+            });
+        });
+        document.querySelector('#folder').addEventListener('input', ()=>{
+            Settings.set({
+                outputFolder: document.querySelector('#folder').value
+            });
+        });
+        document.querySelector('#filename').addEventListener('input', ()=>{
+            Settings.set({
+                outputFile: document.querySelector('#filename').value
+            });
+        });
+
+        // Click on webcam config
+        document.querySelector('#webcam-config').addEventListener('click', ()=>{
+            // TODO
+        });
+
+        // Click on browse output folder
+        document.querySelector('#folder-browse').addEventListener('click', ()=>{
+            dialog.showOpenDialog(remote.getCurrentWindow(), {
+                title: 'Choose output folder',
+                defaultPath: Settings.get('outputFolder'),
+                properties: ['openDirectory']
+            }, (filepaths)=>{
+                if(Array.isArray(filepaths) && filepaths.length === 1){
+                    document.querySelector('#folder').value = filepaths[0];
+                    Settings.set({
+                        outputFolder: document.querySelector('#folder').value
+                    });
+                }
+            });
+        });
     },
 
     startRecord: ()=>{
+        // Update timer
         Controls.timerStart = moment();
         Controls.updateTimer();
+
+        // Change button design to red with a stop icon
         document.querySelector('#controls-record').innerHTML = '<i class="fas fa-stop fa-fw"></i>';
         document.querySelector('#controls-record').classList.remove('btn-primary');
         document.querySelector('#controls-record').classList.add('btn-danger');
